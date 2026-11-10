@@ -1,0 +1,16 @@
+[
+    {
+        "item_id": "F01",
+        "name": "Fried Rice",
+        "price": 3.0,
+        "category": "Food",
+        "available": true
+    },
+    {
+        "item_id": "D01",
+        "name": "Iced Coffee",
+        "price": 2.0,
+        "category": "Drink",
+        "available": true
+    }
+]
