@@ -1,0 +1,44 @@
+[
+    {
+        "type": "Food",
+        "item_id": 101,
+        "name": "Fried Rice",
+        "price": 3.5,
+        "is_vegetarian": false
+    },
+    {
+        "type": "Food",
+        "item_id": 102,
+        "name": "Vegetable Stir-Fry",
+        "price": 3.0,
+        "is_vegetarian": true
+    },
+    {
+        "type": "Food",
+        "item_id": 103,
+        "name": "Beef Lok Lak",
+        "price": 4.5,
+        "is_vegetarian": false
+    },
+    {
+        "type": "Drink",
+        "item_id": 201,
+        "name": "Iced Latte",
+        "price": 2.0,
+        "is_cold": true
+    },
+    {
+        "type": "Drink",
+        "item_id": 202,
+        "name": "Hot Green Tea",
+        "price": 1.5,
+        "is_cold": false
+    },
+    {
+        "type": "Drink",
+        "item_id": 203,
+        "name": "Fresh Orange Juice",
+        "price": 2.25,
+        "is_cold": true
+    }
+]
