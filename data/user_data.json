@@ -1,0 +1,26 @@
+[
+    {
+        "user_id": 1,
+        "username": "admin",
+        "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+        "role": "Admin",
+        "full_name": "Kim Sorng (Admin)",
+        "is_active": true
+    },
+    {
+        "user_id": 2,
+        "username": "cashier",
+        "password_hash": "b4c94003c562bb0d89535eca77f07284fe560fd48a7cc1ed99f0a56263d616ba",
+        "role": "Cashier",
+        "full_name": "Ra Daro (Cashier)",
+        "is_active": true
+    },
+    {
+        "user_id": 3,
+        "username": "waiter",
+        "password_hash": "1a303e87599632e4a19d3603ca36a6762dea330dccb8017796d6a3b9f82154ac",
+        "role": "Waiter",
+        "full_name": "Sokha (Waiter)",
+        "is_active": true
+    }
+]

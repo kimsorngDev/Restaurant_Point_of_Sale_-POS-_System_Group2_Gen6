@@ -1,9 +1,3 @@
-# ==============================================================================
-# AUTHOR: Ra Daro & Kim Sorng
-# MODULE: Data Persistence Handler
-# DESCRIPTION: Handles saving and loading menu, table, and order data to/from
-#              JSON files using robust try-except error handling.
-# ==============================================================================
 
 import json
 import os
