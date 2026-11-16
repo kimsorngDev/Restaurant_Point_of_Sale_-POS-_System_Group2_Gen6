@@ -1,22 +1,16 @@
 """
 ==============================================================================
-AUTHOR: Ra Daro
 MODULE: Sample Data Provider
-DESCRIPTION: Starter menu items and floor tables for initial POS setup.
+DESCRIPTION: Starter menu items, floor tables, and sample orders for POS setup.
 ==============================================================================
-"""
-
-"""
-data/sample_data.py
-Provides default starter menu items (food and drinks) and restaurant tables
-used to initialize the POS system when no saved JSON data exists yet.
 """
 
 from models.menu import MenuItem, Food, Drink
 from models.table import Table
+from models.order import Order
 
 
-# Returns a starter list of Food and Drink items for initial setup
+# Returns a starter list of Food and Drink items
 def get_sample_menu() -> list[MenuItem]:
     return [
         Food("F01", "Beef Lok Lak", 6.50, is_spicy=False, is_available=True),
@@ -29,12 +23,48 @@ def get_sample_menu() -> list[MenuItem]:
     ]
 
 
-# Returns a starter list of floor tables with numbers and seat capacities
+# Returns a starter list of restaurant tables
 def get_sample_tables() -> list[Table]:
     return [
         Table(1, capacity=2, is_available=True),
         Table(2, capacity=4, is_available=True),
-        Table(3, capacity=4, is_available=True),
+        Table(3, capacity=4, is_available=False),
         Table(4, capacity=6, is_available=True),
         Table(5, capacity=8, is_available=True),
     ]
+
+
+# Sample menu and tables used by the initial sample orders
+sample_menu = get_sample_menu()
+sample_tables = get_sample_tables()
+
+
+# Initial sample order list
+_sample_order_1 = Order(
+    order_id=1001,
+    table_number=2,
+    notes="Customer requested no onions"
+)
+_sample_order_1.add_item(
+    sample_menu[0],
+    quantity=2,
+    special_notes="No onions"
+)
+_sample_order_1.add_item(
+    sample_menu[3],
+    quantity=2,
+    special_notes="Less sugar"
+)
+
+_sample_order_2 = Order(
+    order_id=1002,
+    table_number=3,
+    status=Order.STATUS_IN_PROGRESS
+)
+_sample_order_2.add_item(sample_menu[2], quantity=1, special_notes="Medium well")
+_sample_order_2.add_item(sample_menu[4], quantity=1)
+
+sample_orders = [
+    _sample_order_1,
+    _sample_order_2,
+]

@@ -1,10 +1,19 @@
 """
-models/__init__.py
-Exposes the core domain models (MenuItem, Food, Drink, Table) so other modules
-can import them directly from the `models` package.
+MODULE: Models Package Initializer
+DESCRIPTION: Exposes all core domain models for menu, table, order, and user.
 """
 
 from .menu import MenuItem, Food, Drink
 from .table import Table
+from .order import Order, OrderItem
+from .user import User
 
-__all__ = ["MenuItem", "Food", "Drink", "Table"]
+__all__ = [
+    "MenuItem",
+    "Food",
+    "Drink",
+    "Table",
+    "Order",
+    "OrderItem",
+    "User",
+]
