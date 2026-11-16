@@ -1,4 +1,12 @@
 """
+==============================================================================
+AUTHOR: Ra Daro
+MODULE: Menu & Table Business Logic
+DESCRIPTION: Connects menu/table models with staff order flow and admin actions.
+==============================================================================
+"""
+
+"""
 services/menu_table_service.py
 Core business logic for Menu & Table Management across all sprints:
 - Formatting menus and tables for display

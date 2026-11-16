@@ -1,4 +1,12 @@
 """
+==============================================================================
+AUTHOR: Ra Daro
+MODULE: Menu Management Models
+DESCRIPTION: Defines MenuItem, Food, and Drink classes with JSON serialization.
+==============================================================================
+"""
+
+"""
 models/menu.py
 Defines the restaurant menu hierarchy (MenuItem base class and Food/Drink subclasses).
 Handles item validation, price/name updates, availability toggles, and JSON conversion.

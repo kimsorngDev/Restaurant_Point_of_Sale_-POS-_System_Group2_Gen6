@@ -1,4 +1,12 @@
 """
+==============================================================================
+AUTHOR: Ra Daro
+MODULE: Main CLI Entry Point
+DESCRIPTION: Interactive POS interface for Staff (orders & tables) and Admin.
+==============================================================================
+"""
+
+"""
 main.py
 Interactive CLI entry point for the Restaurant POS System.
 Provides separate menus for Staff (taking dine-in/takeaway orders, completing

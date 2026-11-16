@@ -1,4 +1,12 @@
 """
+==============================================================================
+AUTHOR: Ra Daro
+MODULE: Table Management Model
+DESCRIPTION: Defines the Table class and order occupancy status logic.
+==============================================================================
+"""
+
+"""
 models/table.py
 Defines the Table model, tracking table number, seating capacity, availability,
 and the currently assigned order ID to prevent double-booking occupied tables.

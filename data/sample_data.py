@@ -1,4 +1,12 @@
 """
+==============================================================================
+AUTHOR: Ra Daro
+MODULE: Sample Data Provider
+DESCRIPTION: Starter menu items and floor tables for initial POS setup.
+==============================================================================
+"""
+
+"""
 data/sample_data.py
 Provides default starter menu items (food and drinks) and restaurant tables
 used to initialize the POS system when no saved JSON data exists yet.
