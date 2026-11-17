@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "order_id": "001",
+    "date": "2026-11-15",
+    "table_number": "T01",
+    "items": [
+      {
+        "item_id": "F01",
+        "name": "Fried Rice",
+        "quantity": 1,
+        "price": 3.0
+      }
+    ],
+    "subtotal": 3.0,
+    "status": "New"
+  }
+]
