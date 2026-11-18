@@ -1,10 +1,8 @@
-# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 
-# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -24,11 +22,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 
-# macOS
 .DS_Store
 
-# VS Code
 .vscode/
 
-# Project data
 data/*.json

@@ -1,5 +1,4 @@
 ## 📋 Description of Changes
-<!-- Provide a clear summary of what this PR introduces, updates, or fixes. -->
 
 ## 🧩 Module Affected
 - [ ] Menu Management (`models/menu.py`)
