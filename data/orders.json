@@ -1,17 +1,94 @@
 [
-  {
-    "order_id": "001",
-    "date": "2026-11-15",
-    "table_number": "T01",
-    "items": [
-      {
-        "item_id": "F01",
-        "name": "Fried Rice",
-        "quantity": 1,
-        "price": 3.0
-      }
-    ],
-    "subtotal": 3.0,
-    "status": "New"
-  }
+    {
+        "order_id": 1001,
+        "order_type": "Dine-In",
+        "table_number": 1,
+        "status": "Paid",
+        "created_at": "2026-11-18 12:41:47",
+        "notes": "Guest requested booth if possible",
+        "payment_reference": "TXN-DINE-1001",
+        "items": [
+            {
+                "item_id": "F01",
+                "name": "Beef Lok Lak",
+                "unit_price": 6.5,
+                "quantity": 2,
+                "special_notes": "Extra spicy",
+                "subtotal": 13.0
+            },
+            {
+                "item_id": "201",
+                "name": "Iced Latte",
+                "unit_price": 2.0,
+                "quantity": 2,
+                "special_notes": "Cold, 50% sugar",
+                "subtotal": 4.0
+            },
+            {
+                "item_id": "102",
+                "name": "Vegetable Stir-Fry",
+                "unit_price": 3.0,
+                "quantity": 3,
+                "special_notes": "",
+                "subtotal": 9.0
+            }
+        ],
+        "subtotal": 26.0
+    },
+    {
+        "order_id": 1002,
+        "order_type": "Takeaway",
+        "table_number": null,
+        "status": "Paid",
+        "created_at": "2026-11-18 12:41:47",
+        "notes": "Pick up at 12:30 PM",
+        "payment_reference": "TXN-TAKEAWAY-1002",
+        "items": [
+            {
+                "item_id": "103",
+                "name": "Beef Lok Lak",
+                "unit_price": 4.5,
+                "quantity": 2,
+                "special_notes": "Well done",
+                "subtotal": 9.0
+            },
+            {
+                "item_id": "203",
+                "name": "Fresh Orange Juice",
+                "unit_price": 2.25,
+                "quantity": 2,
+                "special_notes": "",
+                "subtotal": 4.5
+            }
+        ],
+        "subtotal": 13.5
+    },
+    {
+        "order_id": 1001,
+        "order_type": "Dine-In",
+        "table_number": 1,
+        "status": "Paid",
+        "created_at": "2026-11-18 12:42:47",
+        "notes": "",
+        "payment_reference": "REC-20261118124247-1001",
+        "items": [
+            {
+                "item_id": "F01",
+                "name": "Beef Lok Lak",
+                "unit_price": 6.5,
+                "quantity": 2,
+                "special_notes": "",
+                "subtotal": 13.0
+            },
+            {
+                "item_id": "D01",
+                "name": "Iced Latte",
+                "unit_price": 2.75,
+                "quantity": 2,
+                "special_notes": "",
+                "subtotal": 5.5
+            }
+        ],
+        "subtotal": 18.5
+    }
 ]

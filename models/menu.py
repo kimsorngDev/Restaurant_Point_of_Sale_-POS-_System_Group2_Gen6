@@ -4,16 +4,10 @@ class MenuItem:
         raw_id = str(item_id).strip() if item_id is not None else ''
         if not raw_id:
             raise ValueError('Item ID is required.')
-        else:
-            pass
         if not name or not str(name).strip():
             raise ValueError('Item name is required.')
-        else:
-            pass
         if price < 0:
             raise ValueError('Price cannot be negative.')
-        else:
-            pass
         self.item_id = raw_id.upper()
         self.name = str(name).strip()
         self.price = round(float(price), 2)
@@ -23,16 +17,10 @@ class MenuItem:
     def update_details(self, new_name: str | None=None, new_price: float | None=None) -> None:
         if new_name is not None and new_name.strip():
             self.name = new_name.strip()
-        else:
-            pass
         if new_price is not None:
             if new_price < 0:
                 raise ValueError('Price cannot be negative.')
-            else:
-                pass
             self.price = round(float(new_price), 2)
-        else:
-            pass
 
     def set_availability(self, status: bool) -> None:
         self.is_available = bool(status)

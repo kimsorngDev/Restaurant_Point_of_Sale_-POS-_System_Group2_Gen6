@@ -20,55 +20,39 @@ def start_new_order(order_type: str=Order.ORDER_TYPE_DINE_IN, table_number: Opti
     if resolved_type == Order.ORDER_TYPE_DINE_IN:
         if table_number is None or table_number <= 0:
             raise ValueError('Dine-In orders require a valid positive table number.')
-        else:
-            pass
         if tables_list is not None:
             matching_tables = [t for t in tables_list if t.table_number == table_number]
             if not matching_tables:
                 raise ValueError(f'Table {table_number} does not exist in restaurant layout.')
-            else:
-                pass
             target_table = matching_tables[0]
             if not target_table.is_available:
                 raise ValueError(f'Table {table_number:02d} is currently occupied.')
-            else:
-                pass
-        else:
-            pass
-    else:
-        pass
     assigned_id = order_id if order_id is not None else generate_order_id()
     new_order = Order(order_id=assigned_id, table_number=table_number if resolved_type == Order.ORDER_TYPE_DINE_IN else None, order_type=resolved_type, notes=notes)
     if target_table is not None:
         target_table.occupy()
-    else:
-        pass
     return new_order
 
-def add_menu_item_to_order(order: Order, item: Union[MenuItem, int], quantity: int=1, special_notes: str='', menu_list: Optional[List[MenuItem]]=None) -> OrderItem:
-    if isinstance(item, int):
+def add_menu_item_to_order(order: Order, item: Union[MenuItem, int, str], quantity: int=1, special_notes: str='', menu_list: Optional[List[MenuItem]]=None) -> OrderItem:
+    if isinstance(item, (int, str)):
         if not menu_list:
             raise ValueError('A menu_list must be provided when adding items by item_id.')
-        else:
-            pass
-        matching = [m for m in menu_list if m.item_id == item]
+        matching = [m for m in menu_list if str(m.item_id).upper() == str(item).upper()]
         if not matching:
             raise ValueError(f'Menu item with ID [{item}] not found in menu.')
-        else:
-            pass
         menu_item = matching[0]
     elif isinstance(item, MenuItem):
         menu_item = item
     elif isinstance(item, OrderItem):
         return order.add_item(item)
     else:
-        raise TypeError('Item must be an instance of MenuItem, OrderItem, or integer item_id.')
+        raise TypeError('Item must be an instance of MenuItem, OrderItem, or integer/string item_id.')
     return order.add_item(menu_item, quantity=quantity, special_notes=special_notes)
 
-def remove_item_from_order(order: Order, item_id: int) -> bool:
+def remove_item_from_order(order: Order, item_id: Union[int, str]) -> bool:
     return order.remove_item(item_id)
 
-def update_item_quantity(order: Order, item_id: int, new_quantity: int) -> bool:
+def update_item_quantity(order: Order, item_id: Union[int, str], new_quantity: int) -> bool:
     return order.update_item_quantity(item_id, new_quantity)
 
 def calculate_subtotal(order: Order) -> float:
@@ -118,10 +102,4 @@ class OrderManager:
                 if t.table_number == order.table_number:
                     t.release()
                     return True
-                else:
-                    pass
-            else:
-                pass
-        else:
-            pass
         return False

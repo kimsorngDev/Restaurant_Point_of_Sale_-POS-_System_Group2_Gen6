@@ -9,12 +9,6 @@ def prompt_int(label: str) -> int:
             return int(raw)
         except ValueError:
             print('  Invalid input. Enter a whole number.')
-        else:
-            pass
-        finally:
-            pass
-    else:
-        pass
 
 def prompt_float(label: str) -> float:
     while True:
@@ -23,27 +17,15 @@ def prompt_float(label: str) -> float:
             return float(raw)
         except ValueError:
             print('  Invalid input. Enter a valid amount (e.g., 4.50).')
-        else:
-            pass
-        finally:
-            pass
-    else:
-        pass
 
 def prompt_yes_no(label: str) -> bool:
     while True:
         raw = input(f'{label} (y/n): ').strip().lower()
         if raw in {'y', 'yes'}:
             return True
-        else:
-            pass
         if raw in {'n', 'no'}:
             return False
-        else:
-            pass
         print("  Enter 'y' or 'n'.")
-    else:
-        pass
 
 def handle_create_order(service: MenuTableService) -> None:
     print('\n--- NEW ORDER ---')
@@ -66,10 +48,6 @@ def handle_create_order(service: MenuTableService) -> None:
     except ValueError as err:
         print(f'  [Blocked] {err}')
         return
-    else:
-        pass
-    finally:
-        pass
     print(f"\nActive Order: {session['order_id']} ({session['order_type']}" + (f" - Table {session['table_number']})" if session['table_number'] else ')'))
     print('\n' + service.display_menu())
     cart: list[dict] = []
@@ -77,17 +55,11 @@ def handle_create_order(service: MenuTableService) -> None:
         item_id = input("\nEnter Item ID to add (or 'done' to finish): ").strip()
         if item_id.lower() == 'done':
             break
-        else:
-            pass
         try:
             item = service.validate_item_for_order(item_id)
         except ValueError as err:
             print(f'  [Invalid] {err}')
             continue
-        else:
-            pass
-        finally:
-            pass
         qty = prompt_int(f'Quantity for {item.name} (${item.price:.2f}): ')
         try:
             line = service.select_item_for_order(item_id, qty)
@@ -95,32 +67,18 @@ def handle_create_order(service: MenuTableService) -> None:
             print(f"  + Added {line['quantity']}x {line['name']} @ ${line['unit_price']:.2f} = ${line['line_total']:.2f}")
         except ValueError as err:
             print(f'  [Error] {err}')
-        else:
-            pass
-        finally:
-            pass
-    else:
-        pass
     if not cart:
         if session['table_number']:
             service.complete_order_for_table(session['table_number'])
-        else:
-            pass
         print('  Order cancelled (no items added).')
         return
-    else:
-        pass
     total = sum((line['line_total'] for line in cart))
     print('\n=== ORDER CONFIRMED ===')
     print(f"Order ID : {session['order_id']} | Type: {session['order_type']}")
     if session['table_number']:
         print(f"Table    : {session['table_number']} (Status: Occupied)")
-    else:
-        pass
     for line in cart:
         print(f"  - {line['name']:<20} x{line['quantity']}  (${line['unit_price']:.2f} ea) = ${line['line_total']:.2f}")
-    else:
-        pass
     print(f'Total    : ${total:.2f}')
 
 def staff_portal(service: MenuTableService) -> None:
@@ -149,12 +107,6 @@ def staff_portal(service: MenuTableService) -> None:
                 print('  Invalid option.')
         except ValueError as err:
             print(f'  [Error] {err}')
-        else:
-            pass
-        finally:
-            pass
-    else:
-        pass
 
 def admin_portal(service: MenuTableService) -> None:
     while True:
@@ -194,10 +146,6 @@ def admin_portal(service: MenuTableService) -> None:
                 except ValueError:
                     print('  Invalid price entered.')
                     continue
-                else:
-                    pass
-                finally:
-                    pass
                 updated = service.edit_menu_item(item_id, new_name=new_name, new_price=new_price)
                 print(f'  Updated: {updated}')
             elif choice == '4':
@@ -217,12 +165,6 @@ def admin_portal(service: MenuTableService) -> None:
                 print('  Invalid option.')
         except ValueError as err:
             print(f'  [Error] {err}')
-        else:
-            pass
-        finally:
-            pass
-    else:
-        pass
 
 def main() -> None:
     service = MenuTableService(DataManager(), seed_if_empty=True)
@@ -241,9 +183,5 @@ def main() -> None:
             break
         else:
             print('  Invalid selection.')
-    else:
-        pass
 if __name__ == '__main__':
     main()
-else:
-    pass

@@ -9,16 +9,10 @@ class User:
     def __init__(self, user_id: int, username: str, password_hash: str, role: str=ROLE_CASHIER, full_name: str='', is_active: bool=True):
         if user_id <= 0:
             raise ValueError('User ID must be a positive integer.')
-        else:
-            pass
         if not username.strip():
             raise ValueError('Username cannot be empty.')
-        else:
-            pass
         if role not in self.VALID_ROLES:
             raise ValueError(f"Invalid role '{role}'. Must be one of: {', '.join(self.VALID_ROLES)}")
-        else:
-            pass
         self.user_id = user_id
         self.username = username.strip().lower()
         self.password_hash = password_hash
