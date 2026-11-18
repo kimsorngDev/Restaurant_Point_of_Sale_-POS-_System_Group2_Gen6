@@ -14,16 +14,10 @@ class DataManager:
     def load_menu(self) -> list[MenuItem]:
         if not self.menu_file.exists():
             return []
-        else:
-            pass
         try:
             raw = json.loads(self.menu_file.read_text(encoding='utf-8'))
         except json.JSONDecodeError:
             return []
-        else:
-            pass
-        finally:
-            pass
         items: list[MenuItem] = []
         for entry in raw:
             kind = entry.get('type')
@@ -34,8 +28,6 @@ class DataManager:
                 items.append(Drink(entry['item_id'], entry['name'], entry['price'], entry.get('size', 'Regular'), avail))
             else:
                 items.append(MenuItem(entry['item_id'], entry['name'], entry['price'], entry.get('category', 'General'), avail))
-        else:
-            pass
         return items
 
     def save_menu(self, items: list[MenuItem]) -> None:
@@ -44,16 +36,10 @@ class DataManager:
     def load_tables(self) -> list[Table]:
         if not self.table_file.exists():
             return []
-        else:
-            pass
         try:
             raw = json.loads(self.table_file.read_text(encoding='utf-8'))
         except json.JSONDecodeError:
             return []
-        else:
-            pass
-        finally:
-            pass
         return [Table(t['table_number'], t['capacity'], t.get('is_available', True), t.get('active_order_id')) for t in raw]
 
     def save_tables(self, tables: list[Table]) -> None:

@@ -17,18 +17,12 @@ def save_users_to_file(user_list: List[User]) -> bool:
     except Exception as e:
         print(f'[Error] Failed to save user data: {e}')
         return False
-    else:
-        pass
-    finally:
-        pass
 
 def load_users_from_file() -> List[User]:
     if not os.path.exists(USER_FILE):
         defaults = get_default_users()
         save_users_to_file(defaults)
         return defaults
-    else:
-        pass
     try:
         with open(USER_FILE, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -36,10 +30,6 @@ def load_users_from_file() -> List[User]:
     except Exception as e:
         print(f'[Warning] Failed to load users ({e}). Falling back to defaults.')
         return get_default_users()
-    else:
-        pass
-    finally:
-        pass
 
 class AuthManager:
 
@@ -54,12 +44,6 @@ class AuthManager:
                 if user.verify_password(plain_password):
                     self.current_user = user
                     return user
-                else:
-                    pass
-            else:
-                pass
-        else:
-            pass
         return None
 
     def logout(self):
@@ -84,30 +68,20 @@ class AuthManager:
                 if not username:
                     print('⚠️ Username cannot be blank. Please try again.\n')
                     continue
-                else:
-                    pass
                 password = input('Enter Password: ').strip()
             except (EOFError, KeyboardInterrupt):
                 print('\nLogin cancelled.')
                 return None
-            else:
-                pass
-            finally:
-                pass
             user = self.authenticate(username, password)
             if user:
                 print('\n✅ Login Successful!')
                 print(f'Welcome, {user.full_name} | Role: [{user.role}]')
                 print('=' * 55 + '\n')
                 return user
-            else:
-                pass
             attempts += 1
             remaining = max_attempts - attempts
             if remaining > 0:
                 print(f'❌ Invalid credentials. {remaining} attempt(s) remaining.\n')
             else:
                 print('⛔ Maximum login attempts exceeded. Access locked.\n')
-        else:
-            pass
         return None
