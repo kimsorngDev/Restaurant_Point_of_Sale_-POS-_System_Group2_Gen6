@@ -1,188 +1,148 @@
+
 import json
-import os 
-import csv
+import os
+from models.menu import Food, Drink, MenuItem
+from models.table import Table
+from models.order import Order
 
-def load_menu():
+MENU_FILE = "data/menu_data.json"
+TABLE_FILE = "data/table_data.json"
+ORDER_FILE = "data/order_data.json"
+
+
+# --- MENU FILE STORAGE HANDLER ---
+
+def save_menu_to_file(menu_list: list) -> bool:
+    """Saves a list of MenuItem objects to a JSON file."""
     try:
-        with open("data/menu.json", "r") as file:
-            menu = json.load(file)
-        return menu
+        os.makedirs("data", exist_ok=True)
+        data = [item.to_dict() for item in menu_list]
+        with open(MENU_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        print("Menu data successfully saved to JSON file.")
+        return True
+    except PermissionError:
+        print(f"[Error] Permission denied when writing to '{MENU_FILE}'.")
+    except Exception as e:
+        print(f"[Error] Failed to save menu data: {e}")
+    return False
 
-    except FileNotFoundError:
-        print("Menu file not found.")
+
+def load_menu_from_file() -> list:
+    """Loads menu items from a JSON file and returns object instances."""
+    if not os.path.exists(MENU_FILE):
+        print(f"⚠️ [Warning] File '{MENU_FILE}' not found. Returning empty menu list.")
         return []
+
+    try:
+        with open(MENU_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        menu_list = []
+        for item in data:
+            item_type = item.get("type")
+            if item_type == "Food":
+                menu_list.append(Food(item["item_id"], item["name"], item["price"], item.get("is_vegetarian", False)))
+            elif item_type == "Drink":
+                menu_list.append(Drink(item["item_id"], item["name"], item["price"], item.get("is_cold", True)))
+            else:
+                menu_list.append(MenuItem(item["item_id"], item["name"], item["price"]))
+
+        print("Menu data successfully loaded from JSON file.")
+        return menu_list
 
     except json.JSONDecodeError:
-        print("Menu file contains invalid JSON.")
-        return []
+        print(f"[Error] File '{MENU_FILE}' contains invalid JSON formatting.")
+    except KeyError as e:
+        print(f"[Error] Missing required data field in JSON: {e}")
+    except Exception as e:
+        print(f"[Unexpected Error] Failed to load menu: {e}")
+    
+    return []
 
-def load_tables():
+
+# --- TABLE FILE STORAGE HANDLER ---
+
+def save_tables_to_file(tables_list: list) -> bool:
+    """Saves a list of Table objects to a JSON file."""
     try:
-        with open("data/tables.json", "r") as file:
-            tables = json.load(file)
-        return tables
+        os.makedirs("data", exist_ok=True)
+        data = [table.to_dict() for table in tables_list]
+        with open(TABLE_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        print("Table data successfully saved to JSON file.")
+        return True
+    except PermissionError:
+        print(f"[Error] Permission denied when writing to '{TABLE_FILE}'.")
+    except Exception as e:
+        print(f"[Error] Failed to save table data: {e}")
+    return False
 
-    except FileNotFoundError:
-        print("Tables file not found.")
+
+def load_tables_from_file() -> list:
+    """Loads table data from a JSON file and returns Table object instances."""
+    if not os.path.exists(TABLE_FILE):
+        print(f"⚠️ [Warning] File '{TABLE_FILE}' not found. Returning empty table list.")
         return []
+
+    try:
+        with open(TABLE_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        tables_list = [
+            Table(t["table_number"], t["capacity"], t["is_available"]) 
+            for t in data
+        ]
+        print("Table data successfully loaded from JSON file.")
+        return tables_list
 
     except json.JSONDecodeError:
-        print("Tables file contains invalid JSON.")
+        print(f"[Error] File '{TABLE_FILE}' contains invalid JSON formatting.")
+    except KeyError as e:
+        print(f"[Error] Missing required table attribute in JSON: {e}")
+    except Exception as e:
+        print(f"[Unexpected Error] Failed to load tables: {e}")
+    
+    return []
+
+
+# --- ORDER FILE STORAGE HANDLER ---
+
+def save_orders_to_file(orders_list: list) -> bool:
+    """Saves a list of Order objects to a JSON file."""
+    try:
+        os.makedirs("data", exist_ok=True)
+        data = [order.to_dict() for order in orders_list]
+        with open(ORDER_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+        print("Order data successfully saved to JSON file.")
+        return True
+    except PermissionError:
+        print(f"[Error] Permission denied when writing to '{ORDER_FILE}'.")
+    except Exception as e:
+        print(f"[Error] Failed to save order data: {e}")
+    return False
+
+
+def load_orders_from_file() -> list:
+    """Loads order data from a JSON file and returns Order object instances."""
+    if not os.path.exists(ORDER_FILE):
+        print(f"⚠️ [Warning] File '{ORDER_FILE}' not found. Returning empty order list.")
         return []
 
-def save_json(filename, data):
     try:
-        with open("data/" + filename, "w") as file:
-            json.dump(data, file, indent=4)
-        print("Data saved successfully.")
+        with open(ORDER_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
 
-    except OSError:
-        print("Error saving data.")
-
-def load_orders():
-    try:
-        with open("data/orders.json", "r") as file:
-            orders = json.load(file)
-        return orders
-
-    except FileNotFoundError:
-        print("Orders file not found.")
-        return []
+        orders_list = [Order.from_dict(order_data) for order_data in data]
+        print("Order data successfully loaded from JSON file.")
+        return orders_list
 
     except json.JSONDecodeError:
-        print("Orders file contains invalid JSON.")
-        return []
+        print(f"[Error] File '{ORDER_FILE}' contains invalid JSON formatting.")
+    except KeyError as e:
+        print(f"[Error] Missing required order attribute in JSON: {e}")
+    except Exception as e:
+        print(f"[Unexpected Error] Failed to load orders: {e}")
 
-def save_sales(order_id, receipt_id, date, total, currency, payment_method):
-    try:
-        with open("data/sales.csv", "a", newline="") as file:
-            writer = csv.writer(file)
-            writer.writerow([order_id, receipt_id, date, total, currency, payment_method])
-        print("Sales data saved.")
-
-    except OSError:
-        print("Error saving sales data.")
-
-def load_sales():
-    try:
-        with open("data/sales.csv", "r") as file:
-            reader = csv.DictReader(file)
-            sales = []
-
-            for row in reader:
-                sales.append(row)
-
-            return sales
-
-    except FileNotFoundError:
-        print("Sales file not found.")
-        return []
-
-def daily_sales_report(date):
-    sales = load_sales()
-    daily_sales = []
-    usd_total = 0
-    khr_total = 0
-
-    for sale in sales:
-        if sale["date"] == date:
-            daily_sales.append(sale)
-
-            if sale["currency"] == "USD":
-                usd_total += float(sale["total"])
-            elif sale["currency"] == "KHR":
-                khr_total += float(sale["total"])
-
-    totals = {
-        "USD": usd_total,
-        "KHR": khr_total
-    }
-
-    return daily_sales, totals
-
-
-def monthly_sales_report(month):
-    sales = load_sales()
-    monthly_sales = []
-    usd_total = 0
-    khr_total = 0
-
-    for sale in sales:
-        if sale["date"].startswith(month):
-            monthly_sales.append(sale)
-
-            if sale["currency"] == "USD":
-                usd_total += float(sale["total"])
-            elif sale["currency"] == "KHR":
-                khr_total += float(sale["total"])
-
-    totals = {
-        "USD": usd_total,
-        "KHR": khr_total
-    }
-
-    return monthly_sales, totals
-
-
-def calculate_total_sales():
-    sales = load_sales()
-    usd_total = 0
-    khr_total = 0
-
-    for sale in sales:
-        if sale["currency"] == "USD":
-            usd_total += float(sale["total"])
-        elif sale["currency"] == "KHR":
-            khr_total += float(sale["total"])
-
-    return {
-        "USD": usd_total,
-        "KHR": khr_total
-    }
-
-def popular_items(orders=None):
-    if orders is None:
-        orders = load_orders()
-
-    menu = load_menu()
-
-    food_counts = {}
-    drink_counts = {}
-
-    for order in orders:
-        for item in order["items"]:
-            for menu_item in menu:
-                if item["item_id"] == menu_item["item_id"]:
-
-                    if menu_item["category"] == "Food":
-                        name = item["name"]
-
-                        if name in food_counts:
-                            food_counts[name] += item["quantity"]
-                        else:
-                            food_counts[name] = item["quantity"]
-
-                    elif menu_item["category"] == "Drink":
-                        name = item["name"]
-
-                        if name in drink_counts:
-                            drink_counts[name] += item["quantity"]
-                        else:
-                            drink_counts[name] = item["quantity"]
-
-    popular_food = ""
-    popular_drink = ""
-    food_quantity = 0
-    drink_quantity = 0
-
-    for name, quantity in food_counts.items():
-        if quantity > food_quantity:
-            food_quantity = quantity
-            popular_food = name
-
-    for name, quantity in drink_counts.items():
-        if quantity > drink_quantity:
-            drink_quantity = quantity
-            popular_drink = name
-
-    return popular_food, popular_drink
+    return []
