@@ -1,5 +1,5 @@
 from data_manager import load_menu, load_tables, load_orders, load_sales, daily_sales_report, monthly_sales_report, calculate_total_sales, popular_items
-
+from datetime import date
 menu = load_menu()
 tables = load_tables()
 
@@ -43,7 +43,7 @@ print(load_sales())
 #save_sales("002", "R002", "2026-11-15", 20000, "KHR", "Cash")
 
 print("Daily Sales Report:")
-records, totals = daily_sales_report("2026-11-15")
+records, totals = daily_sales_report("2026-11-19")
 
 print(records)
 print("USD Total:", totals["USD"])
