@@ -1,19 +1,7 @@
-"""
-MODULE: Models Package Initializer
-DESCRIPTION: Exposes all core domain models for menu, table, order, and user.
-"""
+from models.menu import MenuItem, Food, Drink
+from models.table import Table
+from models.order import Order, OrderItem
+from models.user import User
+from models.payment import Payment
 
-from .menu import MenuItem, Food, Drink
-from .table import Table
-from .order import Order, OrderItem
-from .user import User
-
-__all__ = [
-    "MenuItem",
-    "Food",
-    "Drink",
-    "Table",
-    "Order",
-    "OrderItem",
-    "User",
-]
+__all__ = ['MenuItem', 'Food', 'Drink', 'Table', 'Order', 'OrderItem', 'User', 'Payment']
