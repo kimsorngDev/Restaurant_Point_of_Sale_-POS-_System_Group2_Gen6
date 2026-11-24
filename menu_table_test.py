@@ -183,5 +183,85 @@ def main() -> None:
    break
   else:
    print(' Invalid selection.')
-if __name__ == '__main__':
- main()
+   
+def run_automated_tests() -> None:
+    print("\n" + "=" * 60)
+    print("  RA DARO - MENU & TABLE INTEGRATION TEST SUITE")
+    print("=" * 60)
+
+    test_storage = DataManager(
+        menu_path="data/test_menu_ra_daro.json",
+        table_path="data/test_tables_ra_daro.json",
+    )
+    if test_storage.menu_file.exists():
+        test_storage.menu_file.unlink()
+    if test_storage.table_file.exists():
+        test_storage.table_file.unlink()
+
+    service = MenuTableService(test_storage, seed_if_empty=True)
+
+    # 1. Test adding menu items
+    service.add_food("F90", "Amok Trey", 6.50, is_spicy=True)
+    service.add_drink("D90", "Sugarcane Juice", 2.00, size="Large")
+    assert service.get_menu_item("F90") is not None
+    assert service.get_menu_item("D90") is not None
+    print("[PASS] 1. Add menu items (Food & Drink + JSON persistence)")
+
+    # 2. Test editing menu item prices
+    service.edit_menu_item("F90", new_price=7.25)
+    assert service.get_menu_item("F90").price == 7.25
+    try:
+        service.edit_menu_item("F90", new_price=-3.00)
+        assert False, "Negative price should raise ValueError"
+    except ValueError:
+        pass
+    print("[PASS] 2. Edit menu item prices & block invalid negative prices")
+
+    # 3. Test removing or deactivating menu items
+    service.set_item_availability("F90", False)
+    try:
+        service.validate_item_for_order("F90")
+        assert False, "Deactivated item should not be orderable"
+    except ValueError:
+        pass
+    assert service.remove_menu_item("D90") is True
+    assert service.get_menu_item("D90") is None
+    print("[PASS] 3. Deactivate (block ordering) & remove menu items")
+
+    # 4. Test dine-in table selection
+    session = service.start_order_session("ORD-TEST-01", "dine-in", table_number=1)
+    assert session["table_number"] == 1
+    assert service.get_table(1).is_available is False
+    print("[PASS] 4. Dine-in table selection marks table as Occupied")
+
+    # 5. Test table availability and occupancy
+    try:
+        service.start_order_session("ORD-TEST-02", "dine-in", table_number=1)
+        assert False, "Occupied table should reject second order"
+    except ValueError:
+        pass
+    print("[PASS] 5. Occupied table rejects duplicate active orders")
+
+    # 6. Test table release after payment
+    released_table = service.complete_order_for_table(1)
+    assert released_table.is_available is True
+    assert released_table.active_order_id is None
+    print("[PASS] 6. Table released back to Available after payment")
+
+    # Clean up temporary test files
+    if test_storage.menu_file.exists():
+        test_storage.menu_file.unlink()
+    if test_storage.table_file.exists():
+        test_storage.table_file.unlink()
+
+    print("=" * 60)
+    print("  ALL 6 MENU & TABLE TEST CASES PASSED!")
+    print("=" * 60)
+
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        run_automated_tests()
+    else:
+        main()

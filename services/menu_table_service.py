@@ -15,14 +15,32 @@ class MenuTableService:
    self.storage.save_menu(self.menu)
    self.storage.save_tables(self.tables)
 
- def display_menu(self, only_available: bool=False) -> str:
-  items = [i for i in self.menu if i.is_available] if only_available else self.menu
-  if not items:
-   return 'No menu items available.'
-  lines = ['--- RESTAURANT MENU ---']
-  for item in items:
-   lines.append(str(item))
-  return '\n'.join(lines)
+ def display_menu(self, only_available: bool = False) -> str:
+        items = [i for i in self.menu if i.is_available] if only_available else self.menu
+        if not items:
+            return "Menu is currently empty."
+
+        sorted_items = sorted(items, key=lambda x: x.item_id.upper())
+
+        foods = [item for item in sorted_items if getattr(item, "category", "").lower() == "food"]
+        drinks = [item for item in sorted_items if getattr(item, "category", "").lower() == "drink"]
+        others = [item for item in sorted_items if getattr(item, "category", "").lower() not in {"food", "drink"}]
+
+        lines = ["=== RESTAURANT MENU ==="]
+        if foods:
+            avail_foods = sum(1 for item in foods if item.is_available)
+            lines.append(f"\n[ FOOD ] ({avail_foods}/{len(foods)} Available)")
+            lines.extend(str(item) for item in foods)
+        if drinks:
+            avail_drinks = sum(1 for item in drinks if item.is_available)
+            lines.append(f"\n[ DRINKS ] ({avail_drinks}/{len(drinks)} Available)")
+            lines.extend(str(item) for item in drinks)
+        if others:
+            avail_others = sum(1 for item in others if item.is_available)
+            lines.append(f"\n[ OTHER ] ({avail_others}/{len(others)} Available)")
+            lines.extend(str(item) for item in others)
+
+        return "\n".join(lines)
 
  def display_tables(self) -> str:
   if not self.tables:

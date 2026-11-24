@@ -1,110 +1,83 @@
 [
     {
-        "type": "food",
         "item_id": "F01",
         "name": "Beef Lok Lak",
-        "price": 6.5,
+        "price": 7.0,
         "category": "Food",
         "is_available": true,
+        "stock": 8,
         "is_spicy": false
     },
     {
-        "type": "food",
         "item_id": "F02",
         "name": "Spicy Basil Chicken",
         "price": 5.0,
         "category": "Food",
         "is_available": true,
+        "stock": 5,
         "is_spicy": true
     },
     {
-        "type": "food",
         "item_id": "F03",
         "name": "Fish Amok",
         "price": 6.0,
         "category": "Food",
         "is_available": true,
+        "stock": 4,
         "is_spicy": false
     },
     {
-        "type": "food",
         "item_id": "F04",
         "name": "Seafood Fried Rice",
         "price": 5.5,
         "category": "Food",
-        "is_available": true,
+        "is_available": false,
+        "stock": 0,
         "is_spicy": false
     },
     {
-        "type": "drink",
         "item_id": "D01",
         "name": "Iced Latte",
         "price": 2.75,
         "category": "Drink",
         "is_available": true,
+        "stock": 15,
         "size": "Regular"
     },
     {
-        "type": "drink",
         "item_id": "D02",
         "name": "Passion Fruit Soda",
         "price": 2.5,
         "category": "Drink",
         "is_available": true,
+        "stock": 12,
         "size": "Large"
     },
     {
-        "type": "drink",
         "item_id": "D03",
         "name": "Fresh Coconut",
         "price": 2.0,
         "category": "Drink",
         "is_available": true,
+        "stock": 6,
         "size": "Regular"
     },
     {
-        "type": "food",
-        "item_id": "101",
-        "name": "Fried Rice",
-        "price": 3.5,
-        "category": "Food",
-        "is_available": true,
-        "is_spicy": false
-    },
-    {
-        "type": "food",
-        "item_id": "102",
-        "name": "Vegetable Stir-Fry",
-        "price": 3.0,
-        "category": "Food",
-        "is_available": true,
-        "is_spicy": false
-    },
-    {
-        "type": "drink",
-        "item_id": "201",
-        "name": "Iced Latte",
-        "price": 2.0,
-        "category": "Drink",
-        "is_available": true,
-        "size": "Regular"
-    },
-    {
-        "type": "drink",
-        "item_id": "202",
-        "name": "Hot Green Tea",
-        "price": 1.5,
-        "category": "Drink",
-        "is_available": true,
-        "size": "Regular"
-    },
-    {
-        "type": "food",
         "item_id": "F99",
         "name": "Royal Khmer Curry",
         "price": 4.75,
         "category": "Food",
         "is_available": true,
+        "stock": 3,
         "is_spicy": true
+    },
+    {
+        "item_id": "D04",
+        "name": "Coca-Cola",
+        "price": 1.0,
+        "category": "Drink",
+        "is_available": true,
+        "stock": 20,
+        "size": "Regular"
     }
 ]
